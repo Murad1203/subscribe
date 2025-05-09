@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: you
+      changes:
+        - createTable:
+            tableName: subscription
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: count_subscribers
+                  type: INT
+                  constraints:
+                    nullable: false

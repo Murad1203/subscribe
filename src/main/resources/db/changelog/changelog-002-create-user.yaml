@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: you
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: lastname
+                  type: VARCHAR(255)
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+
+        - createTable:
+            tableName: user_subscribers
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subscribers_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: user_subscribers
+            baseColumnNames: user_id
+            referencedTableName: user
+            referencedColumnNames: id
+            constraintName: fk_user_to_subscriptions_owner
+
+        - addForeignKeyConstraint:
+            baseTableName: user_subscribers
+            baseColumnNames: subscribers_id
+            referencedTableName: subscription
+            referencedColumnNames: id
+            constraintName: fk_user_to_subscription_target
