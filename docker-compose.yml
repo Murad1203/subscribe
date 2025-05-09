@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    container_name: spring_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/kvant
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: superuser
+    networks:
+      - backend
+
+  postgres:
+    image: postgres:15
+    container_name: pg_db
+    restart: always
+    environment:
+      POSTGRES_DB: kvant
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: superuser
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
