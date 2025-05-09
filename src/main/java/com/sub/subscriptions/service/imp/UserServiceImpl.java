@@ -23,11 +23,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(long id, User user) {
-
     }
 
     @Override
     public void deleteUser(long id) {
-
+        userRepository.deleteById(id);
     }
 }
